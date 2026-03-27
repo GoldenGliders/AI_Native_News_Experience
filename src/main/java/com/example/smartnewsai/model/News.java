@@ -1,4 +1,5 @@
 package com.example.newsai.model;
+package com.example.smartnewsai.model;
 
 public class News {
 
