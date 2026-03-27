@@ -12,80 +12,106 @@ import com.example.smartnewsai.model.News;
 @Service
 public class NewsService {
 
-    // Temporary hardcoded news list (later your teammate can move this to NewsDataLoader)
     private List<News> newsList = Arrays.asList(
-            new News(1, "India launches new satellite mission",
-                    "India successfully launched a new satellite to improve communication and weather monitoring across the country."),
-            new News(2, "Stock market rises sharply",
-                    "The stock market rose sharply today due to positive global cues and strong investor confidence."),
-            new News(3, "New education policy announced",
-                    "The government announced a new education policy focusing on skill development, digital learning, and practical training."),
-            new News(4, "AI is changing healthcare",
-                    "Artificial Intelligence is being used in hospitals to detect diseases early and help doctors make better decisions."),
-            new News(5, "Climate change affects monsoon",
-                    "Experts say climate change is impacting monsoon patterns, leading to unpredictable rainfall and extreme weather events.")
+            new News(
+                    "India launches new satellite mission",
+                    "India successfully launched a new satellite to improve communication and weather monitoring across the country.",
+                    "Science",
+                    "26-03-2026"
+            ),
+            new News(
+                    "Stock market rises sharply",
+                    "The stock market rose sharply today due to positive global cues and strong investor confidence.",
+                    "Business",
+                    "26-03-2026"
+            ),
+            new News(
+                    "New education policy announced",
+                    "The government announced a new education policy focusing on skill development, digital learning, and practical training.",
+                    "Education",
+                    "26-03-2026"
+            ),
+            new News(
+                    "AI is changing healthcare",
+                    "Artificial Intelligence is being used in hospitals to detect diseases early and help doctors make better decisions.",
+                    "Technology",
+                    "26-03-2026"
+            ),
+            new News(
+                    "Climate change affects monsoon",
+                    "Experts say climate change is impacting monsoon patterns, leading to unpredictable rainfall and extreme weather events.",
+                    "Environment",
+                    "26-03-2026"
+            )
     );
 
     public List<News> getAllNews() {
         return newsList;
     }
 
-    public String summarizeNews(int id) {
-        News news = getNewsById(id);
-        if (news == null) return "News not found.";
+    public String summarizeNews(int index) {
+        if (index < 0 || index >= newsList.size()) {
+            return "News not found.";
+        }
 
-        String content = news.getContent();
-        if (content.length() <= 60) return content;
+        String content = newsList.get(index).getContent();
+
+        if (content.length() <= 60) {
+            return content;
+        }
 
         return content.substring(0, 60) + "...";
     }
 
-    public String explainSimply(int id) {
-        News news = getNewsById(id);
-        if (news == null) return "News not found.";
+    public String explainSimply(int index) {
+        if (index < 0 || index >= newsList.size()) {
+            return "News not found.";
+        }
 
-        return "In simple words: " + news.getContent();
+        return "In simple words: " + newsList.get(index).getContent();
     }
 
-    public List<FlashCard> generateFlashCards(int id) {
-        News news = getNewsById(id);
-        if (news == null) return new ArrayList<>();
+    public List<FlashCard> generateFlashCards(int index) {
+        if (index < 0 || index >= newsList.size()) {
+            return new ArrayList<>();
+        }
+
+        News news = newsList.get(index);
 
         List<FlashCard> cards = new ArrayList<>();
 
-        cards.add(new FlashCard("Main Topic", news.getTitle()));
-        cards.add(new FlashCard("Key Point", summarizeNews(id)));
-        cards.add(new FlashCard("Why it matters", "This news can affect people, economy, or society."));
+        cards.add(new FlashCard("Topic", news.getTitle()));
+        cards.add(new FlashCard("Category", news.getCategory()));
+        cards.add(new FlashCard("Summary", summarizeNews(index)));
+        cards.add(new FlashCard("Why it matters", "This news can affect people and society."));
 
         return cards;
     }
 
-    public String answerQuestion(int id, String question) {
-        News news = getNewsById(id);
-        if (news == null) return "News not found.";
+    public String answerQuestion(int index, String question) {
+        if (index < 0 || index >= newsList.size()) {
+            return "News not found.";
+        }
 
         if (question == null || question.trim().isEmpty()) {
             return "Please ask a valid question.";
         }
 
-        // Basic AI-like answer (rule-based)
-        if (question.toLowerCase().contains("why")) {
-            return "This is important because it impacts society and future decisions.";
-        } else if (question.toLowerCase().contains("what")) {
-            return "This news is about: " + news.getTitle();
-        } else if (question.toLowerCase().contains("how")) {
-            return "It may affect people through policy changes, economy, or daily life.";
+        question = question.toLowerCase();
+
+        if (question.contains("what")) {
+            return "This news is about: " + newsList.get(index).getTitle();
+        }
+        if (question.contains("why")) {
+            return "This matters because it may impact people, economy, or future decisions.";
+        }
+        if (question.contains("when")) {
+            return "This news date is: " + newsList.get(index).getDate();
+        }
+        if (question.contains("category")) {
+            return "This news belongs to: " + newsList.get(index).getCategory();
         }
 
-        return "Based on the news: " + summarizeNews(id);
-    }
-
-    private News getNewsById(int id) {
-        for (News n : newsList) {
-            if (n.getId() == id) {
-                return n;
-            }
-        }
-        return null;
+        return "Based on the news: " + summarizeNews(index);
     }
 }
