@@ -11,7 +11,11 @@ import com.example.smartnewsai.model.News;
 
 @Service
 public class NewsService {
+private final GeminiService geminiService;
 
+public NewsService(GeminiService geminiService) {
+    this.geminiService = geminiService;
+}
     private List<News> newsList = Arrays.asList(
             new News(
                     "India launches new satellite mission",
