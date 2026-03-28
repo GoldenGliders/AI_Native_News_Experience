@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+Don’t upload your API key publicly to GitHub.
+src/main/resources/application.properties
