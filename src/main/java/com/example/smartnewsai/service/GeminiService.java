@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public class GeminiService {
 
-    @Value("AIzaSyBJV_VRpse6lOP1dRqspYvlLKEyp-iMFp0")
+    @Value("${gemini.api.key}")
     private String apiKey;
 
     private final WebClient webClient = WebClient.create();
