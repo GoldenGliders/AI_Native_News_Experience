@@ -2,65 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI-Native News Experience</title>
-
-  <!-- Correct Spring Boot CSS Link -->
+  <title>AI-Native News Portal</title>
   <link rel="stylesheet" href="/style.css">
-
-  <!-- Icons (Font Awesome) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
 
-<header>
-  <div class="header-top">
-    <h1>AI-Native News Experience</h1>
-
-    <!-- Dark Mode Toggle -->
+<!-- Navbar -->
+<header class="navbar">
+  <div class="logo">AI-News</div>
+  <div class="header-actions">
+    <input type="text" id="searchNews" placeholder="Search news..." />
     <button id="toggleDark">🌙</button>
   </div>
-
-  <p class="subtitle">
-    Business news in 2026 shouldn’t feel like 2005. Build a smarter AI-powered experience.
-  </p>
 </header>
 
-<section class="container">
+<!-- Main Layout -->
+<main class="portal-layout">
 
-  <div class="card">
-    <h2><i class="fa-solid fa-user"></i> Personalized Newsroom</h2>
-    <p>Dynamic news feed tailored for every user.</p>
-  </div>
+  <!-- News Feed -->
+  <section class="news-section">
+    <h2>Top Stories</h2>
+    <div id="newsContainer"></div>
+  </section>
 
-  <div class="card">
-    <h2><i class="fa-solid fa-compass"></i> News Navigator</h2>
-    <p>AI-powered interactive briefings.</p>
-  </div>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <!-- Flashcards always on top -->
+    <section class="flashcards-section">
+      <h3>Flashcards</h3>
+      <div id="flashcardsContainer"></div>
+    </section>
 
-  <div class="card">
-    <h2><i class="fa-solid fa-video"></i> Video Studio</h2>
-    <p>Convert news into short AI videos.</p>
-  </div>
+    <!-- Ask question below flashcards -->
+    <section class="question-section">
+      <h3>Ask About News</h3>
+      <input type="text" id="questionInput" placeholder="Type your question..." />
+      <select id="newsSelect"></select>
+      <button onclick="askQuestion()">Ask</button>
+      <div id="answerBox"></div>
+    </section>
+  </aside>
 
-  <div class="card">
-    <h2><i class="fa-solid fa-chart-line"></i> Story Tracker</h2>
-    <p>Track timelines, sentiment & predictions.</p>
-  </div>
-
-  <div class="card">
-    <h2><i class="fa-solid fa-language"></i> Vernacular Engine</h2>
-    <p>Context-aware multilingual news.</p>
-  </div>
-
-</section>
+</main>
 
 <footer>
   <p>© 2026 AI News Experience</p>
 </footer>
 
-<!-- Correct Spring Boot JS Link -->
 <script src="/script.js"></script>
-
 </body>
 </html>

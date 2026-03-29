@@ -1,9 +1,10 @@
+/* ================= Global ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
-  transition: background 0.3s, color 0.3s;
+  transition: all 0.3s;
 }
 
 body {
@@ -11,97 +12,126 @@ body {
   color: #333;
 }
 
-/* Dark Mode */
 body.dark {
   background: #121212;
   color: #eee;
 }
 
-body.dark .card {
-  background: #1e1e1e;
-}
-
-/* Header */
-header {
-  background: #0b3c6d;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
-.header-top {
+/* ================= Navbar ================= */
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px 30px;
+  background: #0b3c6d;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.subtitle {
-  margin-top: 10px;
-  font-size: 14px;
-  opacity: 0.9;
-}
+.navbar .logo { font-size: 24px; font-weight: bold; }
 
-#toggleDark {
-  padding: 8px 12px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-}
+.header-actions { display: flex; align-items: center; gap: 10px; }
 
-/* Grid */
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  padding: 30px;
+.header-actions input { padding: 6px 10px; border-radius: 5px; border: none; }
+
+.header-actions button { padding: 6px 12px; border-radius: 5px; cursor: pointer; border: none; font-size: 16px; }
+
+/* ================= Layout ================= */
+.portal-layout {
+  display: flex;
   gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
+.news-section { flex: 3; min-width: 300px; }
+
+.sidebar { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 250px; }
+
+/* ================= News Cards ================= */
 .card {
   background: white;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  cursor: pointer;
+  margin-bottom: 20px;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s;
 }
 
-/* Hover Animation */
 .card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* Glow effect */
-.card::before {
-  content: "";
-  position: absolute;
+.card h3, .card h4 { margin-bottom: 10px; color: #0b3c6d; }
+
+body.dark .card { background: #1e1e1e; }
+body.dark .card h3, body.dark .card h4 { color: #4da3ff; }
+
+.news-buttons button {
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: linear-gradient(90deg,#4da3ff,#0b3c6d);
+  color: white;
+}
+
+/* ================= Sidebar Sections ================= */
+.flashcards-section,
+.question-section {
+  background: #e7eaf1;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+body.dark .flashcards-section,
+body.dark .question-section {
+  background: #1a1a1a;
+}
+
+.flashcards-section .card { margin-bottom: 10px; }
+
+body.dark .flashcards-section .card { background: #2a2a2a; }
+
+.question-section input,
+.question-section select,
+.question-section button {
+  padding: 8px;
+  margin: 5px 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-  top: -100%;
-  left: -100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.card:hover::before {
-  top: 100%;
-  left: 100%;
-  transition: 0.6s;
+.question-section button {
+  background: #0b3c6d;
+  color: white;
+  cursor: pointer;
 }
 
-.card h2 {
-  margin-bottom: 10px;
-  color: #0b3c6d;
-}
-
-body.dark .card h2 {
-  color: #4da3ff;
-}
-
+/* ================= Footer ================= */
 footer {
   text-align: center;
   padding: 15px;
   background: #0b3c6d;
   color: white;
+  margin-top: 20px;
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 900px) {
+  .portal-layout { flex-direction: column; }
+  .sidebar { flex-direction: row; gap: 10px; }
+  .sidebar > section { flex: 1; }
+}
+
+@media (max-width: 600px) {
+  .news-section, .sidebar { width: 100%; }
 }
